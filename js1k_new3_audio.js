@@ -1,3 +1,15 @@
+//
+// uncompressed version
+// js1k love 2012 entry
+// by Filipe Cruz
+// http://js1k.com/2012-love/details/1092
+//
+// mashup of 3 other entries
+// http://js1k.com/2012-love/details/1045
+// http://js1k.com/2012-love/details/1057
+// http://js1k.com/2012-love/details/1080
+//
+
 with(Math) {
 	
 	s=15, z=50; n=[], t=setTimeout;
@@ -83,12 +95,12 @@ with(Math) {
 	
 	
 	
-	player = new Audio,
-	duration = .2,
-	rate = 44100;
+	//player = new Audio,
+	//duration = .2,
+	//rate = 44100;
 	
 	// create wav note audio
-	function createNote(data) {
+	/*function createNote(data) {
 		var len = data.length,
 			integer = 0,
 			header = "RIFF<##>WAVEfmt \x10\x00\x00\x00\x01\x00\x01\x00<##><##>\x02\x00\x10\x00data<##>";
@@ -114,6 +126,27 @@ with(Math) {
 			header += String.fromCharCode(Math.floor(note / 256));
 		}
 		return 'data:audio/wav;base64,' + btoa(header);
+	}*/
+	
+	qp=new Audio;
+	ql=String.fromCharCode;
+	qn=256;
+	qo=44100;
+	function qc(qf){
+		qb=qf;
+		
+		function qd(qb){qy="";for(qh=0;4>qh;++qh)qy+=ql(qb%qn),qb=0|qb/qn;qe=qe.replace("<##>",qy)}
+		
+		qg=qb.length;
+		qe="RIFF<##>WAVEfmt \u0010\x00\x00\x00\u0001\x00\u0001\x00<##><##>\u0002\x00\u0010\x00data<##>";qd(36+2*qg);qd(qo);qd(2*qo);qd(2*qg);
+		for(qh=0;qh<qg;++qh) {
+			//qm=round(qr*min(1,max(-1,qb[qh]))),0>qm&&(qm+=2*qr+2);
+			qm=round(qr*qb[qh]);
+			//0>qm&&(qm+=2*qr+2);
+			
+			qe+=ql(qm%qn),qe+=ql(0|qm/qn);
+		}
+		return"data:audio/wav;base64,"+btoa(qe)
 	}
 	
 	
@@ -125,8 +158,20 @@ with(Math) {
 		// else
 		flv = random();
 			counter++;
-			if (counter > 8) counter = 0, red = !red, tr();
-			 else
+			if (counter > 8) {
+				counter = 0, red = !red, tr();
+					//player.src = createNote(note(n[12][12]*1000));
+					var tone = [];
+					//freq = 100+flv*300;
+					for(i = 0; i < qo*.2; ++i){
+						//tone.push(Math.sin(2 * Math.PI * i / (rate/freq)));
+						//tone.push(Math.sin(Math.PI * i / (22050/(100+flv*300)) ));
+						tone.push((Math.sin(i*flv/6)+1) );
+					
+					}
+					qp.src = qc(tone);
+					qp.play();
+			} else
 		with(a) {
 			clearRect(0,0,w,w), font = s+2+'px a';//, save();
 			for(x in n) for(y in n[x]) {
@@ -136,15 +181,6 @@ with(Math) {
 			//if(f) fillStyle = 'red', fillText('CLICK 4 LOVE',20,30), restore()
 		}
 		
-		
-		//player.src = createNote(note(n[12][12]*1000));
-		var tone = [];
-		freq = (n[2][2]+n[12][12])*1000;
-		for(i = 0; i < duration * rate; ++i){
-			tone.push(Math.sin(2 * Math.PI * i / (rate/freq)));
-		}
-		player.src = createNote(tone);
-		player.play();
 		
 		t(l,20)
 	})()
