@@ -1,3 +1,14 @@
+//
+// uncompressed version
+// js1k love 2012 entry
+// by Filipe Cruz
+// http://js1k.com/2012-love/details/1092
+//
+// mashup of 2 other entries
+// http://js1k.com/2012-love/details/1045
+// http://js1k.com/2012-love/details/1057
+//
+
 with(Math) {
 	
 	s=15, z=50; n=[], t=setTimeout;
@@ -75,31 +86,22 @@ with(Math) {
 			}
 		}
 	}
-	
-	c.onclick = function(e) { 
-		tr();
-	};
-	
-	yu = 10;
+
 	var counter = 0;
 	var red = true;
 	(l = function() {
-		//if (yu--) yu=10,g();
-		// else
 		flv = random();
 			counter++;
 			if (counter > 8) counter = 0, red = !red, tr();
 			 else
 		with(a) {
-			clearRect(0,0,w,w), font = s+2+'px a';//, save();
+			clearRect(0,0,w,w), font = s+2+'px a';
 			for(x in n) for(y in n[x]) {
 				red ? clrs = colors[hf(cl)] : clrs = colors[0];
 				fillStyle = 'rgba('+clrs+','+(n[x][y]-=.1)+')', fillText('♥',s*x,s*y)
 			}
-			//if(f) fillStyle = 'red', fillText('CLICK 4 LOVE',20,30), restore()
 		}
 		t(l,20)
 	})()
-	
 	
 }
